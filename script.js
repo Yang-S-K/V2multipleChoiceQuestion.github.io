@@ -236,10 +236,19 @@ function handleMultiChoice(item) {
 }
 
 function updateScoreboard(scoreboardElement = document.getElementById("scoreboard")) {
+  const total = questionLimit === Infinity ? wordBank.length : questionLimit;
+
   if (scoreboardElement) {
-    scoreboardElement.innerHTML = `已完成: ${totalQuestions} / ${questionLimit === Infinity ? wordBank.length : questionLimit}`;
+    scoreboardElement.innerText = `${totalQuestions} / ${total}`;
+  }
+
+  const progressBar = document.getElementById("progress-bar");
+  if (progressBar) {
+    const percent = Math.min((totalQuestions / total) * 100, 100);
+    progressBar.style.width = `${percent}%`;
   }
 }
+
 
 function resetQuizState() {
   wordBank.forEach(q => q.seen = false);
