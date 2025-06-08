@@ -133,7 +133,8 @@ function startQuiz() {
 
   const isMultiple = Array.isArray(selected.answer);
   const typeLabel = document.createElement("h3");
-  typeLabel.innerText = `第 ${totalQuestions + 1} 題 ${isMultiple ? "（多選題）" : "（單選題）"}`;
+  const total = questionLimit === Infinity ? wordBank.length : questionLimit;
+  typeLabel.innerText = `${totalQuestions + 1} / ${total} ${isMultiple ? "（多選題）" : "（單選題）"}`;
 
 
   const question = document.createElement("h2");
