@@ -216,3 +216,54 @@ input:focus {
     font-weight: bold;
     transform: scale(1.1);
 }
+
+/* ✅ 手機版優化：防止內容超出螢幕，保持按鈕可見 */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+    height: auto;
+    align-items: flex-start;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+    border-radius: 0;
+  }
+
+  .choice-btn, .direction-btn, .quiz-type-btn, button {
+    width: 100%;
+    max-width: 100%;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+
+  input {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  #options-container {
+    width: 100%;
+  }
+
+  .word-list, .record-list {
+    display: block;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .word-list-item, .record-list-item {
+    display: block;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+
+  .word-list-item span, .record-list-item span {
+    display: block;
+    padding: 5px 0;
+  }
+}
