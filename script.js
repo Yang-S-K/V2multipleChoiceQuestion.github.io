@@ -349,14 +349,30 @@ function showRecordDetail(index, page = 1) {
 
 function renderWordBank(page = 1) {
   const content = document.getElementById("word-bank-content");
-  content.innerHTML = "<h2>題庫內容</h2><div id='word-list'></div><div id='word-pagination'></div>";
+  content.innerHTML = `
+    <h2>題庫內容</h2>
+    <input type="text" id="search-input" placeholder="搜尋關鍵字…" />
+    <div id="word-list"></div>
+    <div id="word-pagination"></div>
+  `;
+
+  const input = document.getElementById("search-input");
+  input.addEventListener("input", () => renderWordBank(1)); // 即時更新
+
+  const searchTerm = input.value.trim().toLowerCase();
+
+  // ✅ 根據搜尋詞過濾題庫
+  const filtered = wordBank.filter(q =>
+    q.question.toLowerCase().includes(searchTerm) ||
+    q.options.some(opt => opt.toLowerCase().includes(searchTerm))
+  );
 
   const questionsPerPage = 5;
-  const totalPages = Math.max(1, Math.ceil(wordBank.length / questionsPerPage));
+  const totalPages = Math.max(1, Math.ceil(filtered.length / questionsPerPage));
   if (page > totalPages) page = totalPages;
   const start = (page - 1) * questionsPerPage;
   const end = start + questionsPerPage;
-  const currentQuestions = wordBank.slice(start, end);
+  const currentQuestions = filtered.slice(start, end);
 
   const list = document.getElementById("word-list");
   list.innerHTML = "";
@@ -380,3 +396,4 @@ function renderWordBank(page = 1) {
     pagination.appendChild(btn);
   }
 }
+
